@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous">
+</script>
+</head>
+<body>
+    <div>
+        <label for="daterange">select date:</label>
+     <div>
+      <select id="daterange" placeholder="select date range"></select>
+     </div>
+    </div>
+</body>
+<script>
+ let sysdate=new Date();
+ let sysweekday=sysdate.getDay();
+ let currentWeekStartDate=new Date();
+ switch(sysweekday){
+     case 0:{
+       currentWeekStartDate=sysdate;
+       break;
+     }
+     case 1:{
+        sysdate.setDate(sysdate.getDate()-1);
+        currentWeekStartDate=sysdate;
+       break;
+     }
+     case 2:{
+       sysdate.setDate(sysdate.getDate()-2);
+       currentWeekStartDate=sysdate;
+       console.log(currentWeekStartDate);
+       break;
+     }
+     case 3:{
+        sysdate.setDate(sysdate.getDate()-3);
+        currentWeekStartDate=sysdate;
+       break;
+     }
+     case 4:{
+        sysdate.setDate(sysdate.getDate()-4);
+        currentWeekStartDate=sysdate;
+       break;
+     }
+     case 5:{
+        sysdate.setDate(sysdate.getDate()-5);
+        currentWeekStartDate=sysdate;
+       break;
+     }
+     case 6:{
+        sysdate.setDate(sysdate.getDate()-6);
+        currentWeekStartDate=sysdate;
+       break;
+     }
+     
+ }
+ populateOptions(currentWeekStartDate);
+ function populateOptions(cwsd)
+ { 
+     let currentStart=cwsd;
+     let currentEnd=new Date();
+     currentEnd.setDate(currentStart.getDate()+6);
+     let firstLastEnd=new Date();
+     firstLastEnd.setDate(currentEnd.getDate()-7);
+     let firstLaststart=new Date();
+     firstLaststart.setDate(firstLastEnd.getDate()-6);
+     let secondLastEnd=new Date();
+     secondLastEnd.setDate(firstLaststart.getDate()-1);
+     let secondLastStart=new Date();
+     secondLastStart.setDate(secondLastEnd.getDate()-6);
+     let thirdLastEnd=new Date();
+     thirdLastEnd.setDate(secondLastStart.getDate()-1);
+     let thirdLastStart=new Date();
+     thirdLastStart.setDate(thirdLastEnd.getDate()-6);
+     console.log(currentStart.toLocaleString('en-IN',{dateStyle:'full'}));
+     
+     $("#daterange").append(`<option selected>${currentStart.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]} - ${currentEnd.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]}</option>`);
+     $("#daterange").append(`<option>${firstLaststart.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]} - ${firstLastEnd.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]}</option>`);
+     $("#daterange").append(`<option>${thirdLastStart.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]} - ${thirdLastEnd.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]}</option>`);
+     $("#daterange").append(`<option>${secondLastStart.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]} - ${secondLastEnd.toLocaleString('en-IN',{dateStyle:'full'}).split(',')[1]}</option>`);
+
+
+ }
+</script>
+
+</html>
